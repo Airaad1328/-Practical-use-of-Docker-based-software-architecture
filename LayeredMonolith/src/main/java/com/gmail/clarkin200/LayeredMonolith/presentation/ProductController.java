@@ -3,6 +3,7 @@ package com.gmail.clarkin200.LayeredMonolith.presentation;
 import com.gmail.clarkin200.LayeredMonolith.application.BaseService;
 import com.gmail.clarkin200.LayeredMonolith.application.ProductServiceImpl;
 import com.gmail.clarkin200.LayeredMonolith.domain.Product;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +45,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct (@RequestBody CreateProductDto dto) {
+    public ResponseEntity<Product> createProduct (@Valid @RequestBody CreateProductDto dto) {
         Optional<Product> created = service.save(mapper.dtoToEntity(dto));
         return created.isPresent() ?
                 ResponseEntity.status(HttpStatusCode.valueOf(201)).body(created.get())
